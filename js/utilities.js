@@ -1,81 +1,88 @@
-// update phone price 
+
+// update total phone price function
 function updatePhonePrice(isIncrease){
+    // step-1: get the value of phone number field
     const phoneNumberField = document.getElementById('phone-number-field');
     const phoneNumberString = phoneNumberField.value;
-    const PreviousPhoneNumber = parseInt(phoneNumberString);
+    const previousPhoneNumber = parseInt(phoneNumberString);
 
+    // step-2: get the value of new phone number
     let newPhoneNumber;
     if(isIncrease === true){
-        newPhoneNumber = PreviousPhoneNumber + 1;
+        newPhoneNumber = previousPhoneNumber + 1;
     }
     else{
-        newPhoneNumber = PreviousPhoneNumber - 1;
+        newPhoneNumber = previousPhoneNumber - 1;
     }
-    // set the current phone number
+    // step-3: set the new phone number of phone num field
     phoneNumberField.value = newPhoneNumber;
 
-    // get the total price
+    // step-4: get the total phone price
     const totalPhonePrice = newPhoneNumber * 1219;
-    // set the total price
+
+    // step-5: set the total price 
     const totalPriceElement = document.getElementById('total-phone-price');
     totalPriceElement.innerText = totalPhonePrice;
 }
 
-// update casing price 
+// update total case price function
 function updateCasePrice(isIncrease){
-    // get the case number field value
+    // step-1: get the case field value
     const caseNumberField = document.getElementById('case-number-field');
     const caseNumberString = caseNumberField.value;
-    const PreviousCaseNumber = parseInt(caseNumberString);
+    const previousCaseNumber = parseInt(caseNumberString);
 
+    // step-2: get new case number
     let newCaseNumber;
     if(isIncrease === true){
-        newCaseNumber = PreviousCaseNumber + 1;
+        newCaseNumber = previousCaseNumber + 1;
     }
     else{
-        newCaseNumber = PreviousCaseNumber - 1;
+        newCaseNumber = previousCaseNumber - 1;
     }
-    // set the current case number 
+    // step-3: set new case number of the case field
     caseNumberField.value = newCaseNumber;
 
-    // get the total case price 
+    // setp-4: get total case price
     const totalCasePrice = newCaseNumber * 59;
 
-    // set the total case price 
+    // step-5: set total case price 
     const totalPriceElement = document.getElementById('total-case-price');
     totalPriceElement.innerText = totalCasePrice;
 }
 
-// get text element value by id 
+// get the value of the text element function
 function getTextElementValueById(elementId){
-    const totalElement = document.getElementById(elementId);
-    const totalString = totalElement.innerText;
-    const totalPrice = parseInt(totalString);             
-    return totalPrice;
+    const element = document.getElementById(elementId);
+    const elementPriceString = element.innerText;
+    const elementPrice = parseInt(elementPriceString);
+    return elementPrice;
 }
 
-// set text element value by id 
-function setTextElementValueById(elementId, value){
+// set the value of the text element function
+function setTextValueById(elementId, value){
     const element = document.getElementById(elementId);
     element.innerText = value;
 }
 
-// calculate sub total
-function calculateSubTotal(){
-    
-    const currentPhoneTotal = getTextElementValueById('total-phone-price');
-    const currentCaseTotal = getTextElementValueById('total-case-price');
-    const currentSubtotal = currentPhoneTotal + currentCaseTotal;
+// total price function
+function totalPrice(){
+    const currentPhonePrice = getTextElementValueById('total-phone-price');
+    const currentCasePrice = getTextElementValueById('total-case-price');
+    // phone and case total price
+    const currentTotalPrice = currentPhonePrice + currentCasePrice;
 
-    const subtotalElement = document.getElementById('sub-total');
-    subtotalElement.innerText = currentSubtotal;
+    // set the current sub total price 
+    const subTotalPrice = setTextValueById('sub-total', currentTotalPrice);
 
-    // calculate tax 
-    const taxAmountString = (currentSubtotal * 0.1).toFixed(2);
+    // calculat tax 
+    const taxAmountString = (currentTotalPrice * 0.1).toFixed(2);
     const taxAmount = parseFloat(taxAmountString);
-    setTextElementValueById('tax-amount', taxAmount);
 
-    // final price
-    const finalAmount = currentSubtotal + taxAmount;
-    setTextElementValueById('final-total', finalAmount)
+    // set taxt amount 
+    setTextValueById('tax-amount', taxAmount);
+
+    // total price amount 
+    const finalAmount = currentTotalPrice + taxAmount;
+    setTextValueById('final-total', finalAmount)
 }
